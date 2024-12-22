@@ -1,0 +1,11 @@
+# Secrets
+MedAssist/Configurations/Secrets.plist
+
+# Xcode
+*.xcuserdata
+*.xcuserstate
+*.swp
+*.lock
+build/
+DerivedData/
+*.log
