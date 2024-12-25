@@ -29,7 +29,9 @@ final class ChatViewModel: ObservableObject {
         messages.append(userMessage)
         
         // Eingabefeld leeren
-        userInput = ""
+        DispatchQueue.main.async {
+            self.userInput = "" // Sicherstellen, dass das Eingabefeld sofort geleert wird
+        }
         isLoading = true
         
         // Konversationshistorie vorbereiten

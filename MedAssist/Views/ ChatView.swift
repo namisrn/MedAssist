@@ -11,6 +11,7 @@ import SwiftUI
 /// Zeigt eine Konversationsansicht und ermöglicht die Eingabe neuer Nachrichten.
 struct ChatView: View {
     @StateObject private var viewModel = ChatViewModel()
+    @FocusState private var isKeyboardFocused: Bool // Fokuszustand für das Eingabefeld
     
     var body: some View {
         VStack(spacing: 16) {
@@ -19,6 +20,7 @@ struct ChatView: View {
                 .font(.system(size: 28, weight: .bold))
                 .foregroundColor(AppColors.primary)
                 .padding(.top, 20)
+            
             // Nachrichtenanzeige
             ChatMessagesView(messages: viewModel.messages)
                 .background(AppColors.background)
@@ -27,25 +29,30 @@ struct ChatView: View {
                 .padding(.horizontal)
             
             // Eingabefeld und Senden-Button
-            HStack(spacing: 12) {
+            HStack(alignment: .center, spacing: 12) {
                 // Eingabefeld
                 TextField("Wie kann ich Dir helfen?", text: $viewModel.userInput)
-                    .padding(16)
+                    .padding(12)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(0)
                     .background(AppColors.background)
-                    .cornerRadius(12)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
+                        RoundedRectangle(cornerRadius: 20)
                             .stroke(AppColors.primary.opacity(0.6), lineWidth: 1)
                     )
                     .shadow(color: AppColors.text.opacity(0.1), radius: 2, x: 0, y: 1)
                     .font(.system(size: 16))
-                    .foregroundColor(Color.gray) // Eingabefeld-Text auf Grau (Tertiary Color) einstellen
-                    .tint(AppColors.primary) // Cursor auf Primärfarbe setzen
+                    .foregroundColor(AppColors.tertiary)
+                    .tint(AppColors.primary)
                     .frame(minHeight: 50)
                     .accessibilityHint("Eingabefeld für Deine Nachricht.")
+                    .focused($isKeyboardFocused) // Bindet den Fokuszustand an das Eingabefeld
                 
                 // Senden-Button
-                Button(action: viewModel.sendMessage) {
+                Button(action: {
+                    viewModel.sendMessage()
+                    isKeyboardFocused = false // Tastatur schließen
+                }) {
                     ZStack {
                         if viewModel.isLoading {
                             ProgressView()
@@ -56,9 +63,9 @@ struct ChatView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .frame(width: 100, height: 50) // Feste Breite und Höhe
+                    .frame(width: 80, height: 45) // Feste Breite und Höhe
                     .background(AppColors.primary)
-                    .cornerRadius(12)
+                    .cornerRadius(20)
                     .shadow(color: AppColors.primary.opacity(0.3), radius: 4, x: 0, y: 2)
                 }
                 .disabled(viewModel.userInput.isEmpty)
@@ -67,9 +74,11 @@ struct ChatView: View {
             }
             .padding(.horizontal)
             .padding(.bottom, 16)
-
         }
-        .background(AppColors.background.ignoresSafeArea())
+        .background(AppColors.background.ignoresSafeArea()) // Hintergrund
+        .onTapGesture {
+            isKeyboardFocused = false // Schließt die Tastatur beim Tippen außerhalb
+        }
         .accessibilityElement(children: .contain)
     }
 }
@@ -91,8 +100,9 @@ struct ChatMessagesView: View {
                             if message.isUser {
                                 Spacer()
                                 Text(message.content)
-                                    .padding(12)
-                                    .background(AppColors.primary.opacity(0.2))
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(AppColors.primary.opacity(0.2), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                                     .cornerRadius(12)
                                     .frame(maxWidth: .infinity, alignment: .trailing)
                                     .foregroundStyle(AppColors.primary)
@@ -102,13 +112,13 @@ struct ChatMessagesView: View {
                                         Button(action: {
                                             UIPasteboard.general.string = message.content
                                         }){
-                                            Label("Copy", systemImage: "doc.fill")
+                                            Label("Copy", systemImage: "document.on.document")
                                         }
                                     }
                             } else {
                                 Text(message.content)
                                     .padding(12)
-                                    .background(AppColors.tertiary.opacity(0.2)) // Antwort auf Grau (Tertiary Color) setzen
+                                    .background(AppColors.tertiary.opacity(0.2), in: RoundedRectangle(cornerRadius: 20, style: .continuous)) // Antwort auf Grau (Tertiary Color) setzen
                                     .cornerRadius(12)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .foregroundColor(AppColors.tertiary) // Textfarbe ebenfalls auf Grau
@@ -118,7 +128,7 @@ struct ChatMessagesView: View {
                                         Button(action: {
                                             UIPasteboard.general.string = message.content
                                         }){
-                                            Label("Copy", systemImage: "doc.fill")
+                                            Label("Copy", systemImage: "document.on.document")
                                         }
                                     }
                                 Spacer()
@@ -126,7 +136,6 @@ struct ChatMessagesView: View {
                         }
                     }
                 }
-                .padding(16)
             }
             .onChange(of: messages.count) { _, _ in
                 guard let lastMessageId = messages.last?.id else { return }
