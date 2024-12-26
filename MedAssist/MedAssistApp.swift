@@ -11,7 +11,7 @@ import SwiftUI
 struct MedAssistApp: App {
     var body: some Scene {
         WindowGroup {
-            ChatView()
+            Home()
         }
     }
 }

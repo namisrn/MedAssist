@@ -11,8 +11,9 @@ import SwiftUI
 /// Zeigt eine Konversationsansicht und ermöglicht die Eingabe neuer Nachrichten.
 struct ChatView: View {
     @StateObject private var viewModel = ChatViewModel()
-    @FocusState private var isKeyboardFocused: Bool // Fokuszustand für das Eingabefeld
-    
+    @FocusState private var isKeyboardFocused: Bool // Fokus für das Eingabefeld
+    @Binding var initialInput: String // Gemeinsamer Zustand für das Eingabefeld
+
     var body: some View {
         VStack(spacing: 16) {
             // App-Titel
@@ -29,29 +30,30 @@ struct ChatView: View {
                 .padding(.horizontal)
             
             // Eingabefeld und Senden-Button
-            HStack(alignment: .center, spacing: 12) {
+            HStack(spacing: 12) {
                 // Eingabefeld
                 TextField("Wie kann ich Dir helfen?", text: $viewModel.userInput)
                     .padding(12)
                     .multilineTextAlignment(.leading)
-                    .lineLimit(0)
                     .background(AppColors.background)
+                    .cornerRadius(20)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(AppColors.primary.opacity(0.6), lineWidth: 1)
                     )
-                    .shadow(color: AppColors.text.opacity(0.1), radius: 2, x: 0, y: 1)
                     .font(.system(size: 16))
                     .foregroundColor(AppColors.tertiary)
                     .tint(AppColors.primary)
-                    .frame(minHeight: 50)
-                    .accessibilityHint("Eingabefeld für Deine Nachricht.")
-                    .focused($isKeyboardFocused) // Bindet den Fokuszustand an das Eingabefeld
+                    .focused($isKeyboardFocused)
+                    .onAppear {
+                        viewModel.userInput = initialInput // Vorherige Eingabe einfügen
+                        isKeyboardFocused = true // Tastatur sofort öffnen
+                    }
                 
-                // Senden-Button
+                // Senden-Button mit Ladeindikator
                 Button(action: {
                     viewModel.sendMessage()
-                    isKeyboardFocused = false // Tastatur schließen
+                    initialInput = "" // Eingabefeld zurücksetzen
                 }) {
                     ZStack {
                         if viewModel.isLoading {
@@ -66,25 +68,26 @@ struct ChatView: View {
                     .frame(width: 80, height: 45) // Feste Breite und Höhe
                     .background(AppColors.primary)
                     .cornerRadius(20)
-                    .shadow(color: AppColors.primary.opacity(0.3), radius: 4, x: 0, y: 2)
                 }
-                .disabled(viewModel.userInput.isEmpty)
+                .disabled(viewModel.userInput.isEmpty || viewModel.isLoading) // Deaktivieren während des Ladens
                 .opacity(viewModel.userInput.isEmpty ? 0.6 : 1.0)
-                .accessibilityHint("Sendet die Nachricht.")
             }
+
             .padding(.horizontal)
             .padding(.bottom, 16)
+
         }
-        .background(AppColors.background.ignoresSafeArea()) // Hintergrund
+        
+        .background(AppColors.background.ignoresSafeArea())
         .onTapGesture {
-            isKeyboardFocused = false // Schließt die Tastatur beim Tippen außerhalb
+            isKeyboardFocused = false // Tastatur schließen bei Tippen außerhalb
         }
-        .accessibilityElement(children: .contain)
     }
 }
 
 #Preview {
-    ChatView()
+    @Previewable @State var currentInput = "" // Lokale @State-Variable für Preview
+    return ChatView(initialInput: $currentInput) // Übergabe der Bindung
 }
 
 /// Die Nachrichtenansicht, die die gesamte Konversation darstellt.
