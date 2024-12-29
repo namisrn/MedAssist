@@ -9,9 +9,9 @@ import Foundation
 
 /// Ein einzelner Chat-Nachrichteneintrag.
 struct ChatMessage: Identifiable {
-    let id = UUID() // Eindeutige ID für jeden Eintrag
-    let content: String // Inhalt der Nachricht
-    let isUser: Bool // Markierung, ob die Nachricht vom Benutzer stammt
+    let id = UUID()
+    let content: String
+    let isUser: Bool
 }
 
 /// ViewModel für die Chat-Komponente der Anwendung.
@@ -30,19 +30,19 @@ final class ChatViewModel: ObservableObject {
         
         // Eingabefeld leeren
         DispatchQueue.main.async {
-            self.userInput = "" // Sicherstellen, dass das Eingabefeld sofort geleert wird
+            self.userInput = ""
         }
         isLoading = true
         
         // Konversationshistorie vorbereiten
-        let conversationHistory = messages.map { message -> [String: String] in
+        let conversationHistory = messages.map { message in
             [
                 "role": message.isUser ? "user" : "assistant",
                 "content": message.content
             ]
         }
         
-        // Anfrage an OpenAI-API
+        // Anfrage an OpenAI-API senden
         OpenAIService.shared.fetchChatResponse(prompt: userMessage.content, conversationHistory: conversationHistory) { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoading = false
@@ -52,7 +52,7 @@ final class ChatViewModel: ObservableObject {
                     let botMessage = ChatMessage(content: response, isUser: false)
                     self?.messages.append(botMessage)
                 case .failure(let error):
-                    let errorMessage = ChatMessage(content: "Fehler: \(error.localizedDescription)", isUser: false)
+                    let errorMessage = ChatMessage(content: "Error: \(error.localizedDescription)", isUser: false)
                     self?.messages.append(errorMessage)
                 }
             }
