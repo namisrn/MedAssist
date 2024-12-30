@@ -1,6 +1,6 @@
 //
 //  Setting.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Sasan Rafat Nami on 26.12.24.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-/// Die `Setting`-View zeigt die Einstellungen der MedAssist-App an.
+/// Die `Setting`-View zeigt die Einstellungen der MediHub-App an.
 /// Sie enthält verschiedene Abschnitte wie Profil, Datenschutz, App-Informationen
 /// und eine Funktion zum Löschen gespeicherter Daten.
 struct Setting: View {
@@ -40,7 +40,7 @@ struct Setting: View {
 
                 // App-Informationen: Anzeigen von Kontaktinformationen und Quellen.
                 Section(header: Text("Über die App").font(.headline)) {
-                    NavigationLink(destination: InfoView()) {
+                    NavigationLink(destination: Info()) {
                         SettingRow(icon: "info.circle.fill", title: "Informationsquellen", color: .green)
                     }
 
@@ -61,7 +61,7 @@ struct Setting: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Text("MedAssist") // Name der App
+                            Text("MediHub") // Name der App
                                 .font(.headline)
                                 .foregroundColor(.secondary)
                             Text("Version 1.0.0") // Aktuelle Version

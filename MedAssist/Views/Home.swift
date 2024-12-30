@@ -1,13 +1,13 @@
 //
 //  Home.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Sasan Rafat Nami on 26.12.24.
 //
 
 import SwiftUI
 
-/// `Home` ist die Hauptansicht der MedAssist-Anwendung.
+/// `Home` ist die Hauptansicht der MediHub-Anwendung.
 /// Sie enthält eine TabView mit verschiedenen Tabs, einschließlich des Chat-Archivs, der neuen Chat-Ansicht und der Einstellungen.
 /// Diese Ansicht verwaltet die Navigation zwischen den Tabs und stellt sicher, dass die Eingabe im neuen Chat zurückgesetzt wird, wenn der Nutzer den Tab verlässt.
 struct Home: View {

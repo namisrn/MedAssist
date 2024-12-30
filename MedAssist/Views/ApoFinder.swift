@@ -1,6 +1,6 @@
 //
 //  ApoFinder.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Sasan Rafat Nami on 26.12.24.
 //

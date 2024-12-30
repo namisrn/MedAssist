@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A537B46E2D0D647A00499365"
-               BuildableName = "MedAssist.app"
-               BlueprintName = "MedAssist"
+               BuildableName = "MediHub.app"
+               BlueprintName = "MediHub"
                ReferencedContainer = "container:MedAssist.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A537B46E2D0D647A00499365"
-            BuildableName = "MedAssist.app"
-            BlueprintName = "MedAssist"
+            BuildableName = "MediHub.app"
+            BlueprintName = "MediHub"
             ReferencedContainer = "container:MedAssist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -67,8 +67,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A537B46E2D0D647A00499365"
-            BuildableName = "MedAssist.app"
-            BlueprintName = "MedAssist"
+            BuildableName = "MediHub.app"
+            BlueprintName = "MediHub"
             ReferencedContainer = "container:MedAssist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

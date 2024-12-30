@@ -374,6 +374,9 @@
     "Erinnerungseinstellungen Ansicht" : {
 
     },
+    "Hallo Sasan" : {
+
+    },
     "Hier kannst du deine Medikamente und Erinnerungen hinzufügen." : {
       "localizations" : {
         "en" : {
@@ -941,6 +944,7 @@
       }
     },
     "MedAssist" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -964,6 +968,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "MedAssist"
+          }
+        }
+      }
+    },
+    "MediHub" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MediHub"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MediHub"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MediHub"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MediHub"
           }
         }
       }

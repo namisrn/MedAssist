@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A537B46F2D0D647A00499365 /* MedAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MedAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A537B46F2D0D647A00499365 /* MediHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		A537B4702D0D647A00499365 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A537B46F2D0D647A00499365 /* MedAssist.app */,
+				A537B46F2D0D647A00499365 /* MediHub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A537B46E2D0D647A00499365 /* MedAssist */ = {
+		A537B46E2D0D647A00499365 /* MediHub */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A537B47D2D0D647D00499365 /* Build configuration list for PBXNativeTarget "MedAssist" */;
+			buildConfigurationList = A537B47D2D0D647D00499365 /* Build configuration list for PBXNativeTarget "MediHub" */;
 			buildPhases = (
 				A537B46B2D0D647A00499365 /* Sources */,
 				A537B46C2D0D647A00499365 /* Frameworks */,
@@ -63,11 +63,11 @@
 			fileSystemSynchronizedGroups = (
 				A537B4712D0D647A00499365 /* MedAssist */,
 			);
-			name = MedAssist;
+			name = MediHub;
 			packageProductDependencies = (
 			);
 			productName = MedAssist;
-			productReference = A537B46F2D0D647A00499365 /* MedAssist.app */;
+			productReference = A537B46F2D0D647A00499365 /* MediHub.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -105,7 +105,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A537B46E2D0D647A00499365 /* MedAssist */,
+				A537B46E2D0D647A00499365 /* MediHub */,
 			);
 		};
 /* End PBXProject section */
@@ -263,6 +263,8 @@
 				DEVELOPMENT_TEAM = P57GR7YZG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MediHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -273,7 +275,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nami.MedAssist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nami.MediHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -292,6 +294,8 @@
 				DEVELOPMENT_TEAM = P57GR7YZG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MediHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -302,7 +306,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nami.MedAssist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nami.MediHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -322,7 +326,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A537B47D2D0D647D00499365 /* Build configuration list for PBXNativeTarget "MedAssist" */ = {
+		A537B47D2D0D647D00499365 /* Build configuration list for PBXNativeTarget "MediHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A537B47E2D0D647D00499365 /* Debug */,

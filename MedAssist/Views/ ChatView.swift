@@ -1,6 +1,6 @@
 //
 //  ChatView.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Beispiel on 14.12.24.
 //
@@ -69,48 +69,56 @@ struct ChatView: View {
     }
     
     // MARK: - Body
-    
     var body: some View {
         VStack(spacing: 16) {
-            
-            // Scrollbare Ansicht für die Anzeige der Chatnachrichten mit automatischem Scrollen zum neuesten Eintrag
-            ScrollViewReader { scrollView in
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 12) {
-                        // Darstellung der Nachrichten sortiert nach Zeitstempel (älteste zuerst)
-                        ForEach(
-                            currentConversation.messages.sorted(by: { $0.timestamp < $1.timestamp }),
-                            id: \.id
-                        ) { message in
-                            MessageRowView(message: message)
+            if currentConversation.messages.isEmpty {
+                // Leere Ansicht mit Begrüßungstext
+                Spacer()
+                Text("Hallo Sasan")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(LinearGradient(
+                        colors: [.blue, .purple, .pink],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    ))
+                Spacer()
+            } else {
+                // Scrollbare Ansicht mit Konversationsnachrichten
+                ScrollViewReader { scrollView in
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 12) {
+                            ForEach(
+                                currentConversation.messages.sorted(by: { $0.timestamp < $1.timestamp }),
+                                id: \.id
+                            ) { message in
+                                MessageRowView(message: message)
+                            }
+                        }
+                        .onChange(of: currentConversation.messages) { _ in
+                            scrollToLatest(in: scrollView)
                         }
                     }
-                    .onChange(of: currentConversation.messages) { _ in
-                        scrollToLatest(in: scrollView)
-                    }
                 }
+                .backgroundStyle(AppColors.background)
+                .cornerRadius(16)
+                .shadow(color: AppColors.text.opacity(0.1), radius: 4, x: 0, y: 2)
+                .padding(.horizontal)
             }
-            .backgroundStyle(AppColors.background)
-            .cornerRadius(16)
-            .shadow(color: AppColors.text.opacity(0.1), radius: 4, x: 0, y: 2)
-            .padding(.horizontal)
-            
-            // Eingabebereich für neue Nachrichten inklusive Textfeld und Senden-Button
+
+            // Eingabebereich für Nachrichten
             inputArea
         }
         .background(AppColors.background.ignoresSafeArea())
         .onTapGesture {
-            // Tastatur ausblenden, wenn außerhalb des Eingabefeldes getippt wird
             isKeyboardFocused = false
         }
         .onAppear {
-            // Übernehmen einer bestehenden Konversation beim Laden der Ansicht
             if let conversation {
                 self.localConversation = conversation
             }
         }
     }
-    
     // MARK: - Private Views
     
     /**

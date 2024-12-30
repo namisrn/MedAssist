@@ -1,6 +1,6 @@
 //
 //  SecretsManager.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Sasan Rafat Nami on 21.12.24.
 //

@@ -1,6 +1,6 @@
 //
 //  MedReminder.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Rafat Nami, Sasan on 27.12.24.
 //

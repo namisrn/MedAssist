@@ -1,6 +1,6 @@
 //
 //  MedAssistApp.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Beispiel on 14.12.24.
 //

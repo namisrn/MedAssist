@@ -1,6 +1,6 @@
 //
 //  ConversationDetailView.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Sasan Rafat Nami on 29.12.24.
 //

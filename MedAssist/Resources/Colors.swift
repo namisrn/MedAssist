@@ -1,6 +1,6 @@
 //
 //  Colors.swift
-//  MedAssist
+//  MediHub
 //
 //  Created by Rafat Nami, Sasan on 16.12.24.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-/// Enthält alle Farben der MedAssist-App.
+/// Enthält alle Farben der MediHub-App.
 struct AppColors {
     static let primary = Color("AppPrimaryColor") // Blau
     static let secondary = Color("AppSecondaryColor") // Grün
