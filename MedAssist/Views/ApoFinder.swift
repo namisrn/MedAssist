@@ -12,7 +12,7 @@ import CoreLocation
 struct ApoFinder: View {
     @StateObject private var viewModel = ApoFinderViewModel()
     @State private var enteredPLZ: String = ""
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -34,35 +34,58 @@ struct ApoFinder: View {
     
     // Eingabebereich für PLZ und Standort
     private var inputSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                TextField("PLZ eingeben", text: $enteredPLZ)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(10)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(8)
-                    .keyboardType(.numberPad)
-                    .onSubmit {
-                        viewModel.fetchApothekes(for: enteredPLZ)
-                    }
-
-                Button(action: {
-                    viewModel.fetchApothekesForCurrentLocation()
-                }) {
-                    Text("Standort verwenden")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                }
+                plzTextField
+                locationButton
             }
-
+            
             Text("Zeigt Apotheken basierend auf Ihrer PLZ oder Ihrem Standort an.")
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
         .padding(.horizontal)
+    }
+    
+    // Eigene View für das PLZ-Textfeld
+    private var plzTextField: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+            TextField("PLZ eingeben", text: $enteredPLZ)
+                .keyboardType(.numberPad)
+                .onSubmit {
+                    viewModel.fetchApothekes(for: enteredPLZ)
+                }
+        }
+        .padding(10)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+        )
+    }
+    
+    // Eigene View für den Standort-Button
+    private var locationButton: some View {
+        Button(action: {
+            viewModel.fetchApothekesForCurrentLocation()
+        }) {
+            HStack {
+                Image(systemName: "location.fill")
+                    .foregroundColor(.white)
+                Text("Standort verwenden")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            }
+            .padding()
+            .frame(height: 44)
+            .background(AppColors.primary)
+            .cornerRadius(8)
+            .shadow(radius: 3)
+        }
+        .buttonStyle(.plain)
     }
     
     // Kartenbereich
@@ -89,10 +112,10 @@ struct ApoFinder: View {
                 .font(.caption2)
                 .bold()
                 .padding(4)
-                .background(Color.white)
+                .background(AppColors.background)
                 .cornerRadius(6)
                 .shadow(radius: 2)
-
+            
             Image(systemName: "mappin.circle.fill")
                 .resizable()
                 .scaledToFit()
@@ -104,26 +127,52 @@ struct ApoFinder: View {
     // Liste der Apotheken
     private var apothekenListSection: some View {
         Group {
-            if !viewModel.apothekes.isEmpty {
-                List(viewModel.apothekes) { apotheke in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(apotheke.name)
-                            .font(.headline)
-                        Text(apotheke.address)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                    .padding(8)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(8)
-                    .listRowSeparator(.hidden)
-                }
-                .listStyle(.plain)
-            } else if !viewModel.isLoading {
+            if viewModel.apothekes.isEmpty {
+                emptyStateView
+            } else {
+                apothekenListView
+            }
+        }
+        .padding(.horizontal)
+    }
+    
+    // View für den leeren Zustand
+    private var emptyStateView: some View {
+        Group {
+            if !viewModel.isLoading {
                 Text("Keine Apotheken gefunden.")
+                    .font(.subheadline)
                     .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
                     .padding()
             }
+        }
+    }
+    
+    // Liste der Apotheken mit eigenen Zellen
+    private var apothekenListView: some View {
+        List(viewModel.apothekes) { apotheke in
+            ApothekeRow(apotheke: apotheke)
+                .listRowSeparator(.hidden)
+        }
+        .listStyle(.inset)
+    }
+    
+    // Einzelne Zeile für eine Apotheke
+    private struct ApothekeRow: View {
+        let apotheke: Apotheke
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(apotheke.name)
+                    .font(.headline)
+                Text(apotheke.address)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            .padding(8)
+            .background(Color(.systemGray6))
+            .cornerRadius(8)
         }
     }
 }

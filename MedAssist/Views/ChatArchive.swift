@@ -54,7 +54,7 @@ struct ChatArchive: View {
                                     Image(systemName: "message.fill")
                                         .foregroundColor(.blue)
                                         .frame(width: 40, height: 40)
-                                        .background(Color(.systemGray6))
+                                        .background(AppColors.background)
                                         .clipShape(Circle())
                                     
                                     VStack(alignment: .leading, spacing: 5) {

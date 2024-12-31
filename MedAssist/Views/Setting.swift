@@ -24,19 +24,19 @@ struct Setting: View {
     var body: some View {
         NavigationView {
             List {
-                // Profilbereich: Ermöglicht das Bearbeiten des Nutzerprofils.
-                Section(header: Text("Profil").font(.headline)) {
-                    NavigationLink(destination: ProfileView()) {
-                        SettingRow(icon: "person.crop.circle.fill", title: "Profil bearbeiten", color: .blue)
-                    }
-                }
-
-                // Datenschutzbereich: Zugriff auf Datenschutzrichtlinien und Berechtigungen.
-                Section(header: Text("Datenschutz").font(.headline)) {
-                    NavigationLink(destination: PrivacyPolicyView()) {
-                        SettingRow(icon: "lock.fill", title: "Datenschutzbestimmungen", color: .red)
-                    }
-                }
+//                // Profilbereich: Ermöglicht das Bearbeiten des Nutzerprofils.
+//                Section(header: Text("Profil").font(.headline)) {
+//                    NavigationLink(destination: ProfileView()) {
+//                        SettingRow(icon: "person.crop.circle.fill", title: "Profil bearbeiten", color: .blue)
+//                    }
+//                }
+//
+//                // Datenschutzbereich: Zugriff auf Datenschutzrichtlinien und Berechtigungen.
+//                Section(header: Text("Datenschutz").font(.headline)) {
+//                    NavigationLink(destination: PrivacyPolicyView()) {
+//                        SettingRow(icon: "lock.fill", title: "Datenschutzbestimmungen", color: .red)
+//                    }
+//                }
 
                 // App-Informationen: Anzeigen von Kontaktinformationen und Quellen.
                 Section(header: Text("Über die App").font(.headline)) {
@@ -44,9 +44,9 @@ struct Setting: View {
                         SettingRow(icon: "info.circle.fill", title: "Informationsquellen", color: .green)
                     }
 
-                    NavigationLink(destination: ContactView()) {
-                        SettingRow(icon: "envelope.fill", title: "Kontakt", color: .blue)
-                    }
+//                    NavigationLink(destination: ContactView()) {
+//                        SettingRow(icon: "envelope.fill", title: "Kontakt", color: .blue)
+//                    }
                 }
 
                 // Daten löschen: Funktionalität zum Löschen aller gespeicherten Konversationen.
@@ -64,7 +64,7 @@ struct Setting: View {
                             Text("MediHub") // Name der App
                                 .font(.headline)
                                 .foregroundColor(.secondary)
-                            Text("Version 1.0.0") // Aktuelle Version
+                            Text("Version 1.0.1") // Aktuelle Version
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }

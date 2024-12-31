@@ -239,7 +239,7 @@ struct ChatView: View {
         isLoading = true
         
         // 4) Überprüfen, ob eine Antwort im Cache vorhanden ist
-        if let cachedResponse = CacheManager.shared.getResponse(for: userMessage.content) {
+        if let cachedResponse: String = CacheManager.shared.getResponse(for: userMessage.content) {
             // Verwendung der zwischengespeicherten Antwort
             let cachedMessage = ChatMessageEntity(
                 content: cachedResponse,
@@ -250,6 +250,7 @@ struct ChatView: View {
             isLoading = false
             return
         }
+
         
         // 5) Senden der Anfrage an die OpenAI-API, wenn keine Antwort im Cache vorhanden ist
         let conversationHistory = currentConversation.messages.map { message in
@@ -259,42 +260,42 @@ struct ChatView: View {
             ]
         }
         
-        OpenAIService.shared.fetchChatResponse(
-            prompt: userMessage.content,
-            conversationHistory: conversationHistory
-        ) { result in
+        Task {
+            do {
+                let responseText = try await OpenAIService.shared.fetchChatResponse(prompt: userMessage.content, conversationHistory: conversationHistory)
+                
+                // Speichern der erhaltenen Antwort im Cache
+                CacheManager.shared.saveResponse(responseText, for: userMessage.content)
+                
+                // Erstellen und Hinzufügen der Bot-Nachricht zur Konversation
+                let botMessage = ChatMessageEntity(
+                    content: responseText,
+                    isUser: false,
+                    conversation: self.currentConversation
+                )
+                self.currentConversation.messages.append(botMessage)
+                
+                // Speichern der Änderungen im SwiftData-Kontext
+                do {
+                    try self.context.save()
+                } catch {
+                    self.errorMessage = "Speicherfehler: \(error.localizedDescription)"
+                }
+                
+            } catch {
+                // Behandlung von Fehlern und Anzeige der Fehlermeldung im UI
+                self.errorMessage = "Fehler: \(error.localizedDescription)"
+                let errorMessage = ChatMessageEntity(
+                    content: "Error: \(error.localizedDescription)",
+                    isUser: false,
+                    conversation: self.currentConversation
+                )
+                self.currentConversation.messages.append(errorMessage)
+            }
+            
+            // Setzt den Ladezustand zurück
             DispatchQueue.main.async {
                 self.isLoading = false
-                switch result {
-                case .success(let responseText):
-                    // Speichern der erhaltenen Antwort im Cache
-                    CacheManager.shared.saveResponse(responseText, for: userMessage.content)
-                    
-                    // Erstellen und Hinzufügen der Bot-Nachricht zur Konversation
-                    let botMessage = ChatMessageEntity(
-                        content: responseText,
-                        isUser: false,
-                        conversation: self.currentConversation
-                    )
-                    self.currentConversation.messages.append(botMessage)
-                    
-                    // Speichern der Änderungen im SwiftData-Kontext
-                    do {
-                        try self.context.save()
-                    } catch {
-                        self.errorMessage = "Speicherfehler: \(error.localizedDescription)"
-                    }
-                    
-                case .failure(let error):
-                    // Behandlung von Fehlern und Anzeige der Fehlermeldung im UI
-                    self.errorMessage = "Fehler: \(error.localizedDescription)"
-                    let errorMessage = ChatMessageEntity(
-                        content: "Error: \(error.localizedDescription)",
-                        isUser: false,
-                        conversation: self.currentConversation
-                    )
-                    self.currentConversation.messages.append(errorMessage)
-                }
             }
         }
     }

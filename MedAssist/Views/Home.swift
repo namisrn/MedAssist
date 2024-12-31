@@ -46,6 +46,7 @@ struct Home: View {
                     .id(selectedTab == .chatview ? UUID() : UUID())
                     .tabItem {
                         Label("New Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
+
                     }
                     .tag(Tab.chatview)
 
@@ -60,6 +61,7 @@ struct Home: View {
                 Setting()
                     .tabItem {
                         Label("Einstellung", systemImage: "gearshape")
+
                     }
                     .tag(Tab.einstellung)
 //                    .safeAreaInset(edge: .bottom) {
@@ -68,12 +70,13 @@ struct Home: View {
             }
             // Handler, der auf Änderungen des ausgewählten Tabs reagiert.
             // Wenn der Nutzer den Chat-Tab verlässt, wird der aktuelle Eingabewert zurückgesetzt.
-            .onChange(of: selectedTab) { newTab in
-                if newTab != .chatview {
-                    // Zurücksetzen der aktuellen Eingabe, wenn der Chat-Tab verlassen wird.
+            .onChange(of: selectedTab) {
+                if selectedTab != .chatview {
                     currentInput = ""
                 }
             }
+            .accentColor(AppColors.primary) // Setzt die Farbe der aktiven Tabs
+
         }
         // Festlegung des Navigations-Titels für die gesamte Ansicht.
         .navigationTitle("New Chat")

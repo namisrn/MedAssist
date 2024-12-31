@@ -173,6 +173,7 @@
       }
     },
     "Datenschutz" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -943,35 +944,6 @@
         }
       }
     },
-    "MedAssist" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MedAssist"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MedAssist"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MedAssist"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MedAssist"
-          }
-        }
-      }
-    },
     "MediHub" : {
       "localizations" : {
         "en" : {
@@ -1225,6 +1197,7 @@
       }
     },
     "Profil" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1339,33 +1312,8 @@
         }
       }
     },
-    "Version 1.0.0" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version 1.0.0"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version 1.0.0"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version 1.0.0"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version 1.0.0"
-          }
-        }
-      }
+    "Version 1.0.1" : {
+
     },
     "Verwendete Quellen" : {
       "localizations" : {
